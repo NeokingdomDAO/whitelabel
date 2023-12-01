@@ -6,14 +6,11 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import {
   DAORoles,
   DAORoles__factory,
-  DIAOracleV2Mock__factory,
-  ERC20Mintable__factory,
+  DIAOracleV2__factory,
   GovernanceToken,
   GovernanceToken__factory,
   IDIAOracleV2,
-  IDIAOracleV2__factory,
   IERC20Mintable,
-  IERC20__factory,
   InternalMarket,
   InternalMarket__factory,
   NeokingdomToken,
@@ -28,7 +25,6 @@ import {
   Voting,
   Voting__factory,
 } from "../../typechain";
-import { DeployConfig } from "../sequence/deploy";
 import { NeokingdomDAO } from "./core";
 
 export const FACTORIES = {
@@ -41,7 +37,7 @@ export const FACTORIES = {
   ShareholderRegistry: ShareholderRegistry__factory,
   USDC: USDC__factory,
   Voting: Voting__factory,
-  DIAOracleV2: DIAOracleV2Mock__factory,
+  DIAOracleV2: DIAOracleV2__factory,
 } as const;
 
 export type ContractNames = keyof typeof FACTORIES;
