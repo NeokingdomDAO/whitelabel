@@ -10,8 +10,8 @@ const config = {
   shareTokenName: "Teledisko DAO Share",
   shareTokenSymbol: "TDSHARE",
   reserveAddress: "0x...",
-  usdcAddress: "0x15c3eb3b621d1bff62cba1c9536b7c1ae9149b57",
-  diaOracleAddress: "0x3141274e597116f0bfcf07aeafa81b6b39c94325",
+  usdcAddress: "0xB01622A5fc48DFba12E22E9D67Aca874dc5bE7E1",
+  diaOracleAddress: "0x0dF7741b706370Fd0d1b7C0331E2e5BA19BDef60",
   contributors: [
     {
       name: "albi",
