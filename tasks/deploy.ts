@@ -6,9 +6,8 @@ import {
   SETUP_SEQUENCE,
   generateDeployContext,
 } from "../lib";
-import { NeokingdomDAO } from "../lib/internal/core";
 import { DAOConfig, generateSetupContext } from "../lib/internal/types";
-import { DeployConfig, SETUP_MOCK_SEQUENCE } from "../lib/sequence/deploy";
+import { SETUP_MOCK_SEQUENCE } from "../lib/sequence/deploy";
 import { SETUP_SEQUENCE_VIGODARZERE, finalizeACL } from "../lib/sequence/post";
 import { SETUP_SEQUENCE_TESTNET } from "../lib/sequence/setup";
 import { question } from "../lib/utils";
