@@ -6,27 +6,29 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import {
   DAORoles,
   DAORoles__factory,
-  DIAOracleV2Mock,
   DIAOracleV2Mock__factory,
+  ERC20Mintable__factory,
   GovernanceToken,
   GovernanceToken__factory,
+  IDIAOracleV2,
+  IDIAOracleV2__factory,
+  IERC20Mintable,
+  IERC20__factory,
   InternalMarket,
   InternalMarket__factory,
   NeokingdomToken,
   NeokingdomToken__factory,
-  ProxyAdmin,
-  ProxyAdmin__factory,
   RedemptionController,
   RedemptionController__factory,
   ResolutionManager,
   ResolutionManager__factory,
   ShareholderRegistry,
   ShareholderRegistry__factory,
-  TokenMock,
-  TokenMock__factory,
+  USDC__factory,
   Voting,
   Voting__factory,
 } from "../../typechain";
+import { DeployConfig } from "../sequence/deploy";
 import { NeokingdomDAO } from "./core";
 
 export const FACTORIES = {
@@ -37,10 +39,9 @@ export const FACTORIES = {
   RedemptionController: RedemptionController__factory,
   ResolutionManager: ResolutionManager__factory,
   ShareholderRegistry: ShareholderRegistry__factory,
-  TokenMock: TokenMock__factory,
+  USDC: USDC__factory,
   Voting: Voting__factory,
-  ProxyAdmin: ProxyAdmin__factory,
-  DIAOracleV2Mock: DIAOracleV2Mock__factory,
+  DIAOracleV2: DIAOracleV2Mock__factory,
 } as const;
 
 export type ContractNames = keyof typeof FACTORIES;
@@ -52,8 +53,25 @@ export type Contributor = {
   tokens: string;
 };
 
+export type Address = `0x${string}`;
+
+export type DAOConfig = {
+  testnet: boolean;
+  multisigAddress: Address;
+  tokenName: string;
+  tokenSymbol: string;
+  governanceTokenName: string;
+  governanceTokenSymbol: string;
+  shareTokenName: string;
+  shareTokenSymbol: string;
+  reserveAddress: Address;
+  usdcAddress: Address;
+  diaOracleAddress: Address;
+  contributors: Contributor[];
+};
+
 export type ContextGenerator<T extends Context> = (
-  n: NeokingdomDAO
+  neokingdomDao: NeokingdomDAO
 ) => Promise<T>;
 
 export type NeokingdomContracts = {
@@ -64,10 +82,9 @@ export type NeokingdomContracts = {
   redemptionController: RedemptionController;
   resolutionManager: ResolutionManager;
   shareholderRegistry: ShareholderRegistry;
-  tokenMock: TokenMock;
+  usdc: IERC20Mintable;
   voting: Voting;
-  proxyAdmin: ProxyAdmin;
-  diaOracleV2Mock: DIAOracleV2Mock;
+  diaOracle: IDIAOracleV2;
 };
 
 export type Context = {};
@@ -97,10 +114,9 @@ export const CONTRACT_NAMES = [
   "redemptionController",
   "resolutionManager",
   "shareholderRegistry",
-  "tokenMock",
+  "usdc",
   "voting",
-  "proxyAdmin",
-  "diaOracleV2Mock",
+  "diaOracle",
 ];
 
 export function isNeokingdomContracts(
@@ -108,6 +124,7 @@ export function isNeokingdomContracts(
 ): n is NeokingdomContracts {
   for (let name of CONTRACT_NAMES) {
     if (!(name in n)) {
+      console.log("missing", name);
       return false;
     }
   }

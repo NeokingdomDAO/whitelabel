@@ -2,6 +2,7 @@ import { TransactionResponse } from "@ethersproject/providers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { Wallet } from "ethers";
 
+import { NeokingdomDAO } from "../internal/core";
 import type {
   ContextGenerator,
   ContractContext,
@@ -11,9 +12,21 @@ import type {
 } from "../internal/types";
 import { ROLES } from "../utils";
 
+export type DeployConfig = {
+  tokenName: string;
+  tokenSymbol: string;
+  governanceTokenName: string;
+  governanceTokenSymbol: string;
+  shareTokenName: string;
+  shareTokenSymbol: string;
+  reserveAddress: string;
+  usdcAddress: string;
+  diaOracleAddress: string;
+};
+
 export type DeployContext = ContractContext & {
   deployer: Wallet | SignerWithAddress;
-  reserve: string;
+  config: DeployConfig;
   deploy: (
     contractName: ContractNames,
     args?: any[]
@@ -24,33 +37,42 @@ export type DeployContext = ContractContext & {
   ) => Promise<TransactionResponse>;
 };
 
-export const generateDeployContext: ContextGenerator<DeployContext> =
-  async function (n) {
-    const contracts = (await n.loadContractsPartial()) as NeokingdomContracts;
+export function generateDeployContext(config: DeployConfig) {
+  async function _generateDeployContext(neokingdomDAO: NeokingdomDAO) {
+    const contracts =
+      (await neokingdomDAO.loadContractsPartial()) as NeokingdomContracts;
     const context: DeployContext = {
       ...contracts,
-      deployer: n.config.deployer,
-      reserve: n.config.reserve,
-      deploy: n.deploy.bind(n),
-      deployProxy: n.deployProxy.bind(n),
+      deployer: neokingdomDAO.config.deployer,
+      config,
+      deploy: neokingdomDAO.deploy.bind(neokingdomDAO),
+      deployProxy: neokingdomDAO.deployProxy.bind(neokingdomDAO),
     };
     return context;
-  };
+  }
+  return _generateDeployContext;
+}
+
+export const SETUP_MOCK_SEQUENCE: Sequence<DeployContext> = [
+  (c) => c.deploy("USDC", ["USDC", "USDC"]),
+  (c) => c.deploy("DIAOracleV2"),
+  (c) => c.diaOracle.setValue("EUR/USD", 100000000, 1688997107),
+  (c) => c.diaOracle.setValue("USDC/USD", 100000000, 1688997107),
+];
 
 export const DEPLOY_SEQUENCE: Sequence<DeployContext> = [
   // Deploy Contracts
   /////////////////////
   (c) => c.deploy("DAORoles"),
-  (c) => c.deploy("TokenMock"),
-  (c) => c.deploy("DIAOracleV2Mock"),
   (c) => c.deployProxy("Voting", [c.daoRoles.address]),
   (c) =>
     c.deployProxy("GovernanceToken", [
       c.daoRoles.address,
-      "NEOKingdom DAO Governance",
-      "NEOKGOV",
+      c.config.governanceTokenName,
+      c.config.governanceTokenSymbol,
     ]),
-  (c) => c.deploy("NeokingdomToken", ["NEOKingdom DAO", "NEOK"]),
+  (c) =>
+    c.deploy("NeokingdomToken", [c.config.tokenName, c.config.tokenSymbol]),
   (c) => c.deployProxy("RedemptionController", [c.daoRoles.address]),
   (c) =>
     c.deployProxy("InternalMarket", [
@@ -60,8 +82,8 @@ export const DEPLOY_SEQUENCE: Sequence<DeployContext> = [
   (c) =>
     c.deployProxy("ShareholderRegistry", [
       c.daoRoles.address,
-      "NeokingdomDAO Share",
-      "NEOKSHARE",
+      c.config.shareTokenName,
+      c.config.shareTokenSymbol,
     ]),
   (c) =>
     c.deployProxy("ResolutionManager", [
@@ -70,7 +92,10 @@ export const DEPLOY_SEQUENCE: Sequence<DeployContext> = [
       c.governanceToken.address,
       c.voting.address,
     ]),
+
+  /*
   (c) => c.deploy("ProxyAdmin"),
+  */
 
   // Set ACLs
   /////////////
@@ -121,13 +146,11 @@ export const DEPLOY_SEQUENCE: Sequence<DeployContext> = [
 
   (c) =>
     c.internalMarket.setRedemptionController(c.redemptionController.address),
-  (c) => c.internalMarket.setReserve(c.reserve),
+  (c) => c.internalMarket.setReserve(c.config.reserveAddress),
   (c) => c.internalMarket.setShareholderRegistry(c.shareholderRegistry.address),
-  (c) => c.diaOracleV2Mock.setValue("EUR/USD", 100000000, 1688997107),
-  (c) => c.diaOracleV2Mock.setValue("USDC/USD", 100000000, 1688997107),
   (c) =>
     c.internalMarket.setExchangePair(
-      c.tokenMock.address,
-      c.diaOracleV2Mock.address
+      c.config.usdcAddress,
+      c.config.diaOracleAddress
     ),
 ];

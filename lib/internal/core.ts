@@ -17,7 +17,6 @@ import {
 
 export type Config = {
   deployer: Wallet | SignerWithAddress;
-  reserve: string;
   chainId: number;
   verifyContracts: boolean;
   saveNetworkConfig: boolean;

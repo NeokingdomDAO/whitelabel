@@ -1,4 +1,3 @@
-import { readFileSync } from "fs";
 import { task } from "hardhat/config";
 
 import {
@@ -7,7 +6,9 @@ import {
   SETUP_SEQUENCE,
   generateDeployContext,
 } from "../lib";
-import { generateSetupContext } from "../lib/internal/types";
+import { NeokingdomDAO } from "../lib/internal/core";
+import { DAOConfig, generateSetupContext } from "../lib/internal/types";
+import { DeployConfig, SETUP_MOCK_SEQUENCE } from "../lib/sequence/deploy";
 import { SETUP_SEQUENCE_VIGODARZERE, finalizeACL } from "../lib/sequence/post";
 import { SETUP_SEQUENCE_TESTNET } from "../lib/sequence/setup";
 import { question } from "../lib/utils";
@@ -15,40 +16,98 @@ import { question } from "../lib/utils";
 const MULTISIG_MAINNET = "0xd232121c41EF9ad4e4d0251BdCbe60b9F3D20758";
 const MULTISIG_TESTNET = "0x7549fe2ED3c16240f97FE736146347409C6dD81D";
 
-task("deploy:dao", "Deploy DAO")
+task("deploy:mocks", "Deploy DAO Mocks")
   .addFlag("verify", "Verify contracts")
   .addFlag("restart", "Start a new deployment from scratch")
+  .addOptionalParam("configFile", "Config file", "../config.js")
   .setAction(
-    async ({ verify, restart }: { verify: boolean; restart: boolean }, hre) => {
+    async (
+      {
+        verify,
+        restart,
+        configFile,
+      }: { verify: boolean; restart: boolean; configFile: string },
+      hre
+    ) => {
+      let config = require(configFile) as DAOConfig;
       if (restart) await hre.run("compile", { force: true });
+
       const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
         verifyContracts: verify,
         verbose: true,
       });
-      await neokingdom.run(generateDeployContext, DEPLOY_SEQUENCE, "deploy", {
+
+      await neokingdom.run(
+        generateDeployContext(config),
+        SETUP_MOCK_SEQUENCE,
+        "setup-test-sequence",
+        {
+          restart,
+        }
+      );
+    }
+  );
+
+task("deploy:dao", "Deploy DAO")
+  .addFlag("verify", "Verify contracts")
+  .addFlag("restart", "Start a new deployment from scratch")
+  .addOptionalParam("configFile", "Config file", "../config.js")
+  .setAction(
+    async (
+      {
+        verify,
         restart,
+        configFile,
+      }: { verify: boolean; restart: boolean; configFile: string },
+      hre
+    ) => {
+      let config = require(configFile) as DAOConfig;
+
+      if (restart) await hre.run("compile", { force: true });
+
+      const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
+        verifyContracts: verify,
+        verbose: true,
       });
+
+      await neokingdom.run(
+        generateDeployContext(config),
+        DEPLOY_SEQUENCE,
+        "deploy",
+        {
+          restart,
+        }
+      );
     }
   );
 
 task("setup:dao", "Set up the DAO")
-  .addFlag("mainnet", "Go to Mainnet")
-  .setAction(async ({ mainnet }: { mainnet: boolean }, hre) => {
-    let sequence = SETUP_SEQUENCE_TESTNET;
-    let contributorsFile = "./dev-wallets.json";
-    if (mainnet) {
-      sequence = SETUP_SEQUENCE;
-      contributorsFile = "./prod-wallets.json";
-    }
-    const contributors = JSON.parse(readFileSync(contributorsFile, "utf-8"));
-
+  .addOptionalParam("configFile", "Config file", "../config.js")
+  .setAction(async ({ configFile }: { configFile: string }, hre) => {
+    let config = require(configFile) as DAOConfig;
+    let sequence = SETUP_SEQUENCE;
     const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
       verbose: true,
     });
     await neokingdom.run(
-      generateSetupContext(contributors, hre),
+      generateSetupContext(config.contributors, hre),
       sequence,
       "setup"
+    );
+  });
+
+task("setup:test", "Set up the test data for the DAO")
+  .addOptionalParam("configFile", "Config file", "../config.js")
+  .setAction(async ({ configFile }: { configFile: string }, hre) => {
+    let config = require(configFile) as DAOConfig;
+    let sequence = SETUP_SEQUENCE_TESTNET;
+    const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
+      verbose: true,
+    });
+    await neokingdom.run(
+      generateSetupContext(config.contributors, hre),
+      sequence,
+      "setup-test"
     );
   });
 
