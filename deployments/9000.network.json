@@ -1,0 +1,52 @@
+{
+  "USDC": {
+    "address": "0xB01622A5fc48DFba12E22E9D67Aca874dc5bE7E1",
+    "blockNumber": 19138696,
+    "blockHash": "0x0493d46d494c63fede20dcf69fab736812d4bd366f34a6cd91518affcf71e2e7"
+  },
+  "DIAOracleV2": {
+    "address": "0x0dF7741b706370Fd0d1b7C0331E2e5BA19BDef60",
+    "blockNumber": 19138701,
+    "blockHash": "0x472a77814631244e053ac327f109f7fd336cdcdf05d25aaf63f7894e0dc9ea01"
+  },
+  "DAORoles": {
+    "address": "0xc3f00B0Dd76647a2D35FFD159c0bD484C23EC31A",
+    "blockNumber": 19138883,
+    "blockHash": "0xaead45c8011ee125e2f7b59c31e84d4bf1404a8a05caafb107dbe6c954392d99"
+  },
+  "Voting": {
+    "address": "0x7084d870BDB4A9b259Ca0BC186466d96EbBf6821",
+    "blockNumber": 19138903,
+    "blockHash": "0x9eccc3fe3ec829deecfddb02d3c82bacc2f28d6646c573b2ee16e4069a749c12"
+  },
+  "GovernanceToken": {
+    "address": "0x107485E90b8ED8D9408fdeDB7437d640ef272461",
+    "blockNumber": 19138939,
+    "blockHash": "0x7d0076d71449e96efbd411cbee2f4a251aedeaf0ad40456f3589dd036a24c7ce"
+  },
+  "NeokingdomToken": {
+    "address": "0xA55B796F64503d1563A64c526C25D1B3502D0D33",
+    "blockNumber": 19138964,
+    "blockHash": "0x92945304c877c56d36c14424078154776d40e277aa5d0eac2b03d061ffbb867d"
+  },
+  "RedemptionController": {
+    "address": "0xec809a52aEb0d7B6a014BfC71FA35A09b036a2D4",
+    "blockNumber": 19138975,
+    "blockHash": "0xb564394435c7cd33c010f58c29e43a920c76a2989b82cc33108642624572beb3"
+  },
+  "InternalMarket": {
+    "address": "0x86f0043bcc44F45dfD8ae997Fc446D655620746c",
+    "blockNumber": 19138994,
+    "blockHash": "0x21be461cd288fd5a075e43cf81024c2efab83505546eba83b6c336627dc2e264"
+  },
+  "ShareholderRegistry": {
+    "address": "0x8c571f75c664fB72adc2f1Aa678247C0eAA4115F",
+    "blockNumber": 19139012,
+    "blockHash": "0x37954f739ae5b3de921413693b02e6ee6c24db953f0d1f599bd4a5474a624300"
+  },
+  "ResolutionManager": {
+    "address": "0xBC1d8bc51d9FaBBD582c97c4D7F92647273c8666",
+    "blockNumber": 19139031,
+    "blockHash": "0x0af9d85ce7d3781c51b6df6e74fa803f73a87eaa533c4d4200818a7644b2562e"
+  }
+}

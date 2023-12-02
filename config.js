@@ -9,7 +9,7 @@ const config = {
   governanceTokenSymbol: "TDGOV",
   shareTokenName: "Teledisko DAO Share",
   shareTokenSymbol: "TDSHARE",
-  reserveAddress: "0x...",
+  reserveAddress: "0x197970E48082CD46f277ABDb8afe492bCCd78300",
   usdcAddress: "0xB01622A5fc48DFba12E22E9D67Aca874dc5bE7E1",
   diaOracleAddress: "0x0dF7741b706370Fd0d1b7C0331E2e5BA19BDef60",
   contributors: [
