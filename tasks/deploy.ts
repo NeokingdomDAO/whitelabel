@@ -6,10 +6,13 @@ import {
   SETUP_SEQUENCE,
   generateDeployContext,
 } from "../lib";
-import { DAOConfig, generateSetupContext } from "../lib/internal/types";
+import { DAOConfig } from "../lib/internal/types";
 import { SETUP_MOCK_SEQUENCE } from "../lib/sequence/deploy";
 import { finalizeACL } from "../lib/sequence/post";
-import { SETUP_SEQUENCE_TESTNET } from "../lib/sequence/setup";
+import {
+  SETUP_SEQUENCE_TESTNET,
+  generateSetupContext,
+} from "../lib/sequence/setup";
 import { question } from "../lib/utils";
 
 task("deploy:mocks", "Deploy DAO Mocks")
@@ -85,11 +88,7 @@ task("setup:dao", "Set up the DAO")
     const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
       verbose: true,
     });
-    await neokingdom.run(
-      generateSetupContext(config.contributors, hre),
-      sequence,
-      "setup"
-    );
+    await neokingdom.run(generateSetupContext(config), sequence, "setup");
   });
 
 task("setup:test", "Set up the test data for the DAO")
@@ -100,11 +99,7 @@ task("setup:test", "Set up the test data for the DAO")
     const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
       verbose: true,
     });
-    await neokingdom.run(
-      generateSetupContext(config.contributors, hre),
-      sequence,
-      "setup-test"
-    );
+    await neokingdom.run(generateSetupContext(config), sequence, "setup-test");
   });
 
 task("setup:acl", "Set up ACL")
@@ -126,11 +121,11 @@ task("setup:acl", "Set up ACL")
       process.exit(0);
     }
 
-    let sequence = finalizeACL(multisig);
+    let sequence = finalizeACL(hre);
 
     const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
       verbose: true,
     });
 
-    await neokingdom.run(generateSetupContext([], hre), sequence, "setup-acl");
+    await neokingdom.run(generateSetupContext(config), sequence, "setup-acl");
   });
