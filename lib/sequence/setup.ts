@@ -1,13 +1,44 @@
-import { BigNumber } from "ethers";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { BigNumber, Wallet } from "ethers";
 import { parseEther } from "ethers/lib/utils";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
-import { expandable } from "../internal/core";
-import { Sequence, SetupContext } from "../internal/types";
+import { NeokingdomDAO, expandable } from "../internal/core";
+import {
+  ContractContext,
+  Contributor,
+  DAOConfig,
+  NeokingdomContracts,
+  Sequence,
+} from "../internal/types";
+
+export type SetupContext = ContractContext & {
+  deployer: Wallet | SignerWithAddress;
+  config: DAOConfig;
+  hre: HardhatRuntimeEnvironment;
+};
+
+export function generateSetupContext(
+  config: DAOConfig,
+  hre: HardhatRuntimeEnvironment
+) {
+  async function _generateSetupContext(n: NeokingdomDAO) {
+    const contracts = (await n.loadContractsPartial()) as NeokingdomContracts;
+    const context: SetupContext = {
+      ...contracts,
+      config,
+      deployer: n.config.deployer,
+      hre,
+    };
+    return context;
+  }
+  return _generateSetupContext;
+}
 
 export const SETUP_SEQUENCE: Sequence<SetupContext> = [
   // Give each address one share
   expandable((preprocessContext: SetupContext) =>
-    preprocessContext.contributors.map(
+    preprocessContext.config.contributors.map(
       (contributor) => (c) =>
         c.shareholderRegistry.mint(contributor.address, parseEther("1"))
     )
@@ -15,7 +46,7 @@ export const SETUP_SEQUENCE: Sequence<SetupContext> = [
 
   // Set address status
   expandable((preprocessContext: SetupContext) =>
-    preprocessContext.contributors.map((contributor) => async (c) => {
+    preprocessContext.config.contributors.map((contributor) => async (c) => {
       if (contributor.status === "contributor") {
         return c.shareholderRegistry.setStatus(
           await c.shareholderRegistry.CONTRIBUTOR_STATUS(),
@@ -40,7 +71,7 @@ export const SETUP_SEQUENCE: Sequence<SetupContext> = [
 
   // Give each contributor tokens
   expandable((preprocessContext: SetupContext) =>
-    preprocessContext.contributors.map(
+    preprocessContext.config.contributors.map(
       (contributor) => (c) =>
         contributor.balance
           ? c.governanceToken.mint(
@@ -53,7 +84,7 @@ export const SETUP_SEQUENCE: Sequence<SetupContext> = [
 
   // Give each contributor vesting tokens
   expandable((preprocessContext: SetupContext) =>
-    preprocessContext.contributors.map(
+    preprocessContext.config.contributors.map(
       (contributor) => (c) =>
         contributor.vestingBalance
           ? c.governanceToken.mintVesting(
@@ -76,7 +107,7 @@ export const SETUP_SEQUENCE_TESTNET: Sequence<SetupContext> = [
       false
     ),
   expandable((preprocessContext: SetupContext) =>
-    preprocessContext.contributors.map(
+    preprocessContext.config.contributors.map(
       (contributor) => (c) =>
         c.usdc.mint(contributor.address, parseEther("10000"))
     )

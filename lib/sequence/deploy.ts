@@ -4,29 +4,17 @@ import { Wallet } from "ethers";
 
 import { NeokingdomDAO } from "../internal/core";
 import type {
-  ContextGenerator,
   ContractContext,
   ContractNames,
+  DAOConfig,
   NeokingdomContracts,
   Sequence,
 } from "../internal/types";
 import { ROLES } from "../utils";
 
-export type DeployConfig = {
-  tokenName: string;
-  tokenSymbol: string;
-  governanceTokenName: string;
-  governanceTokenSymbol: string;
-  shareTokenName: string;
-  shareTokenSymbol: string;
-  reserveAddress: string;
-  usdcAddress: string;
-  diaOracleAddress: string;
-};
-
 export type DeployContext = ContractContext & {
   deployer: Wallet | SignerWithAddress;
-  config: DeployConfig;
+  config: DAOConfig;
   deploy: (
     contractName: ContractNames,
     args?: any[]
@@ -37,7 +25,7 @@ export type DeployContext = ContractContext & {
   ) => Promise<TransactionResponse>;
 };
 
-export function generateDeployContext(config: DeployConfig) {
+export function generateDeployContext(config: DAOConfig) {
   async function _generateDeployContext(neokingdomDAO: NeokingdomDAO) {
     const contracts =
       (await neokingdomDAO.loadContractsPartial()) as NeokingdomContracts;
