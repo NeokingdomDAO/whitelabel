@@ -28,7 +28,7 @@ task("deploy:mocks", "Deploy DAO Mocks")
       }: { verify: boolean; restart: boolean; configFile: string },
       hre
     ) => {
-      let config = require(configFile) as DAOConfig;
+      let config = require("../" + configFile) as DAOConfig;
       if (restart) await hre.run("compile", { force: true });
 
       const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
@@ -60,7 +60,7 @@ task("deploy:dao", "Deploy DAO")
       }: { verify: boolean; restart: boolean; configFile: string },
       hre
     ) => {
-      let config = require(configFile) as DAOConfig;
+      let config = require("../" + configFile) as DAOConfig;
 
       if (restart) await hre.run("compile", { force: true });
 
@@ -83,7 +83,7 @@ task("deploy:dao", "Deploy DAO")
 task("setup:dao", "Set up the DAO")
   .addOptionalParam("configFile", "Config file", "../config.js")
   .setAction(async ({ configFile }: { configFile: string }, hre) => {
-    let config = require(configFile) as DAOConfig;
+    let config = require("../" + configFile) as DAOConfig;
     let sequence = SETUP_SEQUENCE;
     const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
       verbose: true,
@@ -94,7 +94,7 @@ task("setup:dao", "Set up the DAO")
 task("setup:test", "Set up the test data for the DAO")
   .addOptionalParam("configFile", "Config file", "../config.js")
   .setAction(async ({ configFile }: { configFile: string }, hre) => {
-    let config = require(configFile) as DAOConfig;
+    let config = require("../" + configFile) as DAOConfig;
     let sequence = SETUP_SEQUENCE_TESTNET;
     const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
       verbose: true,
@@ -105,7 +105,7 @@ task("setup:test", "Set up the test data for the DAO")
 task("setup:acl", "Set up ACL")
   .addOptionalParam("configFile", "Config file", "../config.js")
   .setAction(async ({ configFile }: { configFile: string }, hre) => {
-    let config = require(configFile) as DAOConfig;
+    let config = require("../" + configFile) as DAOConfig;
     const multisig = config.multisigAddress;
     const { chainId } = hre.network.config;
 
