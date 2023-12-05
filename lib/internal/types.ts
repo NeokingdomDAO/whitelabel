@@ -87,11 +87,13 @@ export type Context = {};
 
 export type ContractContext = Context & NeokingdomContracts;
 
-export type Step<T extends Context> = (c: T) => Promise<TransactionResponse>;
+export type Step<T extends Context> = (
+  c: T
+) => Promise<TransactionResponse | null>;
 
 export type StepWithExpandable<T extends Context> =
   | ExpandableStep<T>
-  | ((c: T) => Promise<TransactionResponse>);
+  | ((c: T) => Promise<TransactionResponse | null>);
 
 export type ExpandableStep<T extends Context> = {
   expandableFunction: (c: T) => ProcessedSequence<T>;
