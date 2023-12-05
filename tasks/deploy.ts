@@ -8,7 +8,7 @@ import {
 } from "../lib";
 import { DAOConfig, generateSetupContext } from "../lib/internal/types";
 import { SETUP_MOCK_SEQUENCE } from "../lib/sequence/deploy";
-import { SETUP_SEQUENCE_VIGODARZERE, finalizeACL } from "../lib/sequence/post";
+import { finalizeACL } from "../lib/sequence/post";
 import { SETUP_SEQUENCE_TESTNET } from "../lib/sequence/setup";
 import { question } from "../lib/utils";
 
@@ -110,46 +110,30 @@ task("setup:test", "Set up the test data for the DAO")
     );
   });
 
-task("setup:vigodarzere", "Set up the DAO").setAction(async (_, hre) => {
-  let sequence = SETUP_SEQUENCE_VIGODARZERE;
-
-  const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
-    verbose: true,
-  });
-  await neokingdom.run(
-    generateSetupContext([], hre),
-    sequence,
-    "setup-vigodarzere"
-  );
-});
-
 task("setup:acl", "Set up ACL")
-  .addFlag("mainnet", "Go to mainnet")
-  .setAction(async ({ mainnet }: { mainnet: boolean }, hre) => {
-    let multisig = MULTISIG_TESTNET;
-    if (mainnet) {
-      multisig = MULTISIG_MAINNET;
-    }
+  .addOptionalParam("configFile", "Config file", "../config.js")
+  .setAction(async ({ configFile }: { configFile: string }, hre) => {
+    let config = require(configFile) as DAOConfig;
+    const multisig = config.multisigAddress;
+    const { chainId } = hre.network.config;
 
     console.log(
-      `Transferring rights and ProxyAdmin ownership to ${multisig} on ${
-        mainnet ? "Mainnet" : "Testnet"
-      }.`
+      `Transferring rights and ProxyAdmin ownership to ${multisig} on ${chainId}.`
     );
+
     const answer = await question(
-      "This action is irreversible. Please type 'GO' to continue.\n"
+      "This action is irreversible. Please type 'GoOoooOOoo' to continue.\n"
     );
 
-    if (answer == "GO") {
-      let sequence = finalizeACL(multisig);
-
-      const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
-        verbose: true,
-      });
-      await neokingdom.run(
-        generateSetupContext([], hre),
-        sequence,
-        "setup-acl"
-      );
+    if (answer !== "GoOoooOOoo") {
+      process.exit(0);
     }
+
+    let sequence = finalizeACL(multisig);
+
+    const neokingdom = await NeokingdomDAOHardhat.initialize(hre, {
+      verbose: true,
+    });
+
+    await neokingdom.run(generateSetupContext([], hre), sequence, "setup-acl");
   });
