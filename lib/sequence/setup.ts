@@ -1,12 +1,10 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { BigNumber, Wallet } from "ethers";
 import { parseEther } from "ethers/lib/utils";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import { NeokingdomDAO, expandable } from "../internal/core";
 import {
   ContractContext,
-  Contributor,
   DAOConfig,
   NeokingdomContracts,
   Sequence,
@@ -15,20 +13,15 @@ import {
 export type SetupContext = ContractContext & {
   deployer: Wallet | SignerWithAddress;
   config: DAOConfig;
-  hre: HardhatRuntimeEnvironment;
 };
 
-export function generateSetupContext(
-  config: DAOConfig,
-  hre: HardhatRuntimeEnvironment
-) {
+export function generateSetupContext(config: DAOConfig) {
   async function _generateSetupContext(n: NeokingdomDAO) {
     const contracts = (await n.loadContractsPartial()) as NeokingdomContracts;
     const context: SetupContext = {
       ...contracts,
       config,
       deployer: n.config.deployer,
-      hre,
     };
     return context;
   }
