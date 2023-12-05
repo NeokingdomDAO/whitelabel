@@ -29,11 +29,20 @@ export function generateSetupContext(config: DAOConfig) {
 }
 
 export const SETUP_SEQUENCE: Sequence<SetupContext> = [
-  // Give each address one share
+  (c) =>
+    c.shareholderRegistry.mint(
+      c.shareholderRegistry.address,
+      c.config.shareCapital
+    ),
+
   expandable((preprocessContext: SetupContext) =>
     preprocessContext.config.contributors.map(
       (contributor) => (c) =>
-        c.shareholderRegistry.mint(contributor.address, parseEther("1"))
+        c.shareholderRegistry.transferFrom(
+          c.shareholderRegistry.address,
+          contributor.address,
+          contributor.shareBalance
+        )
     )
   ),
 

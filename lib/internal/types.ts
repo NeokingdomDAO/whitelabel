@@ -1,7 +1,4 @@
 import { TransactionResponse } from "@ethersproject/providers";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { Wallet } from "ethers";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import {
   DAORoles,
@@ -45,7 +42,8 @@ export type ContractNames = keyof typeof FACTORIES;
 export type Contributor = {
   name?: string;
   address: string;
-  status?: "contributor" | "board" | "investor";
+  status: "contributor" | "board" | "investor";
+  shareBalance: string;
   balance?: string;
   vestingBalance?: string;
 };
@@ -64,6 +62,7 @@ export type DAOConfig = {
   reserveAddress: Address;
   usdcAddress: Address;
   diaOracleAddress: Address;
+  shareCapital: string;
   contributors: Contributor[];
 };
 
