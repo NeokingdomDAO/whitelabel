@@ -1,5 +1,6 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { Wallet } from "ethers";
+import { parseEther } from "ethers/lib/utils";
 
 import { DEPLOY_SEQUENCE, generateDeployContext } from "../../lib";
 import { NeokingdomDAOMemory } from "../../lib/environment/memory";
@@ -13,6 +14,7 @@ const config: DAOConfig = {
   tokenSymbol: "TD",
   governanceTokenName: "Test DAO Governance",
   governanceTokenSymbol: "TDGOV",
+  shareCapital: parseEther("10000").toString(),
   shareTokenName: "Test DAO Share",
   shareTokenSymbol: "TDSHARE",
   reserveAddress: "0x0000000000000000000000000000000000000001",

@@ -1,7 +1,4 @@
 import { TransactionResponse } from "@ethersproject/providers";
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { Wallet } from "ethers";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import {
   DAORoles,
@@ -46,7 +43,9 @@ export type Contributor = {
   name?: string;
   address: string;
   status: "contributor" | "board" | "investor";
-  tokens: string;
+  shareBalance: string;
+  balance?: string;
+  vestingBalance?: string;
 };
 
 export type Address = `0x${string}`;
@@ -63,6 +62,7 @@ export type DAOConfig = {
   reserveAddress: Address;
   usdcAddress: Address;
   diaOracleAddress: Address;
+  shareCapital: string;
   contributors: Contributor[];
 };
 
@@ -87,11 +87,13 @@ export type Context = {};
 
 export type ContractContext = Context & NeokingdomContracts;
 
-export type Step<T extends Context> = (c: T) => Promise<TransactionResponse>;
+export type Step<T extends Context> = (
+  c: T
+) => Promise<TransactionResponse> | null;
 
 export type StepWithExpandable<T extends Context> =
   | ExpandableStep<T>
-  | ((c: T) => Promise<TransactionResponse>);
+  | ((c: T) => Promise<TransactionResponse> | null);
 
 export type ExpandableStep<T extends Context> = {
   expandableFunction: (c: T) => ProcessedSequence<T>;
@@ -99,7 +101,7 @@ export type ExpandableStep<T extends Context> = {
 
 export type Sequence<T extends Context> = StepWithExpandable<T>[];
 
-export type ProcessedSequence<T extends Context> = Step<T>[];
+export type ProcessedSequence<T extends Context> = (Step<T> | null)[];
 
 // FIXME: There Must Be A Better Way™ to do this in TypeScript
 export const CONTRACT_NAMES = [
@@ -125,27 +127,4 @@ export function isNeokingdomContracts(
     }
   }
   return true;
-}
-
-export type SetupContext = ContractContext & {
-  deployer: Wallet | SignerWithAddress;
-  contributors: Contributor[];
-  hre: HardhatRuntimeEnvironment;
-};
-
-export function generateSetupContext(
-  contributors: Contributor[],
-  hre: HardhatRuntimeEnvironment
-) {
-  async function _generateSetupContext(n: NeokingdomDAO) {
-    const contracts = (await n.loadContractsPartial()) as NeokingdomContracts;
-    const context: SetupContext = {
-      ...contracts,
-      contributors: contributors,
-      deployer: n.config.deployer,
-      hre: hre,
-    };
-    return context;
-  }
-  return _generateSetupContext;
 }

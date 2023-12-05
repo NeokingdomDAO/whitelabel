@@ -132,9 +132,18 @@ export abstract class NeokingdomDAO {
     for (let i = nextStep; i < s.length; i++) {
       const context = await c(this);
       const step = s[i];
+
       if (this.config.verbose) {
-        console.log(`${i + 1}/${s.length}: ${step.toString()}`);
+        console.log(
+          `${i + 1}/${s.length}: ${step ? step.toString() : "step is empty"}`
+        );
       }
+
+      // If a step is null, it's skipped
+      if (step === null) {
+        continue;
+      }
+
       let tx: TransactionResponse | null = null;
       try {
         tx = await step(context);
