@@ -13,7 +13,7 @@ export const SETUP_SEQUENCE: Sequence<SetupContext> = [
     )
   ),
 
-  // Set each address to contributor
+  // Set address status
   expandable((preprocessContext: SetupContext) =>
     preprocessContext.contributors.map((contributor) => async (c) => {
       if (contributor.status === "contributor") {
@@ -42,10 +42,25 @@ export const SETUP_SEQUENCE: Sequence<SetupContext> = [
   expandable((preprocessContext: SetupContext) =>
     preprocessContext.contributors.map(
       (contributor) => (c) =>
-        c.governanceToken.mint(
-          contributor.address,
-          BigNumber.from(contributor.tokens.toString())
-        )
+        contributor.balance
+          ? c.governanceToken.mint(
+              contributor.address,
+              BigNumber.from(contributor.balance.toString())
+            )
+          : null
+    )
+  ),
+
+  // Give each contributor vesting tokens
+  expandable((preprocessContext: SetupContext) =>
+    preprocessContext.contributors.map(
+      (contributor) => (c) =>
+        contributor.vestingBalance
+          ? c.governanceToken.mintVesting(
+              contributor.address,
+              BigNumber.from(contributor.vestingBalance.toString())
+            )
+          : null
     )
   ),
 ];
