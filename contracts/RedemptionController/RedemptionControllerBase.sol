@@ -46,8 +46,8 @@ abstract contract RedemptionControllerBase is IRedemptionController {
     );
 
     function _initialize() internal {
-        redemptionStart = 60 days;
-        redemptionWindow = 10 days;
+        redemptionStart = 60 seconds;
+        redemptionWindow = 1 hours;
         maxDaysInThePast = 30 days * 15;
         activityWindow = 30 days * 3;
     }

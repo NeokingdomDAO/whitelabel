@@ -1,0 +1,52 @@
+{
+  "USDC": {
+    "address": "0x4f2cd1D7ce5f4Db38F78bEbD23D7C8bE94117387",
+    "blockNumber": 20778625,
+    "blockHash": "0x68c1041f90bc0686219c9c81199a7c1435364cf9b1415250d5dc35ed70c812a0"
+  },
+  "DIAOracleV2": {
+    "address": "0x1CC22B1E585ddc83554907B15D82B548a13b6223",
+    "blockNumber": 20778638,
+    "blockHash": "0x61e12862ea0d1b0e3114dc0770a71f6f504d9d5f4775ab2483f452f0944fd026"
+  },
+  "DAORoles": {
+    "address": "0x29d04CbC7B1797431FaBbf2C1a4e03C5D17371b5",
+    "blockNumber": 20778846,
+    "blockHash": "0x713bd566da9aec24062b7c97eace0609682e1d8bf55e573528ef9f9be5f59b88"
+  },
+  "Voting": {
+    "address": "0x6b3C51e1287Fbd3AC8e1a4f47038E8b7453958c8",
+    "blockNumber": 20778964,
+    "blockHash": "0x482504a4d1cb95809a4446161398bfbc54c3457df7044d586f54460508ba93f0"
+  },
+  "GovernanceToken": {
+    "address": "0x85216329E401E76FF0D780597A9E50b8CC85B03a",
+    "blockNumber": 20778996,
+    "blockHash": "0x28cde1ac13b9ac33553e809e2bfb23a9767e91252846d06c023a27aebeab1043"
+  },
+  "NeokingdomToken": {
+    "address": "0x322e5E2B2567958145b83dD7f3D64d1c1f2C3597",
+    "blockNumber": 20779030,
+    "blockHash": "0x1daa35a19102a19f778eaed447a02246c3df70b722bf3a0b08d3ca2b950d8988"
+  },
+  "RedemptionController": {
+    "address": "0x6383d2217EBC372ECf00627688905c9B2Cf5d96d",
+    "blockNumber": 20779042,
+    "blockHash": "0x38aec45cca017c30ffdfc21d3780dd87bdf8b6a764d6de4cc489f99a9b6f38c3"
+  },
+  "InternalMarket": {
+    "address": "0x6a709E91059A6FE4b73b48AF4A86a7E2A9cF8D5a",
+    "blockNumber": 20779079,
+    "blockHash": "0x9733c2730ca4d712f7f76c0131e81e63de8af78303dfcad426a8253f61d15dc1"
+  },
+  "ShareholderRegistry": {
+    "address": "0xAC0f5682f72A70270a8a87DF951139C342488f00",
+    "blockNumber": 20779115,
+    "blockHash": "0x75ea4c1adbe587eff0857511affcda9b505dee7a91417b5526e843649f6217fc"
+  },
+  "ResolutionManager": {
+    "address": "0x71AeFd9ef73A36F420E6d08d45de8eAcAb9cA64c",
+    "blockNumber": 20779142,
+    "blockHash": "0x2e27700b92b4f5ee949711452744b112ad287c4c5f0ca8eb93db1b02029c21bb"
+  }
+}
