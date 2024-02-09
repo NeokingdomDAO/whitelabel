@@ -51,6 +51,17 @@ npx hardhat deploy:dao --verify --config-file config.js --network mumbai
 npx hardhat setup:dao --config-file config.js --network mumbai
 ```
 
+- [USDC](https://mumbai.polygonscan.com/address/0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449) `0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449`
+- [DIAOracleV2](https://mumbai.polygonscan.com/address/0xb07Ef6909af5d52931D942dbaB6155794C3fc645) `0xb07Ef6909af5d52931D942dbaB6155794C3fc645`
+- [DAORoles](https://mumbai.polygonscan.com/address/0x8967822842F410496B607E17F9D3e51C889D04e8) `0x8967822842F410496B607E17F9D3e51C889D04e8`
+- [Voting](https://mumbai.polygonscan.com/address/0x002A04822dB995841b04F0cd7bc689B38Ad6dEC7) `0x002A04822dB995841b04F0cd7bc689B38Ad6dEC7`
+- [GovernanceToken](https://mumbai.polygonscan.com/address/0x75A2D1c4fd6b56E31180e6244c72Cb9a5fc8F935) `0x75A2D1c4fd6b56E31180e6244c72Cb9a5fc8F935`
+- [NeokingdomToken](https://mumbai.polygonscan.com/address/0x7394E08A0E12837bfA5d8dd3EdDFEa34ADA54934) `0x7394E08A0E12837bfA5d8dd3EdDFEa34ADA54934`
+- [RedemptionController](https://mumbai.polygonscan.com/address/0x3aE5A2f4a84B61Ebbe7B56754175bE305fa05d10) `0x3aE5A2f4a84B61Ebbe7B56754175bE305fa05d10`
+- [InternalMarket](https://mumbai.polygonscan.com/address/0xD0A04300B06b0b972D26aB328BbfFbD80Ee2B8a2) `0xD0A04300B06b0b972D26aB328BbfFbD80Ee2B8a2`
+- [ShareholderRegistry](https://mumbai.polygonscan.com/address/0x2EdbCdDA85CC393b1104BE2Db62D7C0028dE88Fa) `0x2EdbCdDA85CC393b1104BE2Db62D7C0028dE88Fa`
+- [ResolutionManager](https://mumbai.polygonscan.com/address/0xA79BFAF502D5025B011cc7E8471b03193fC88F09) `0xA79BFAF502D5025B011cc7E8471b03193fC88F09`
+
 # Audits
 
 - [SolidProof](https://solidproof.io/)
