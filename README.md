@@ -49,6 +49,7 @@ npx hardhat deploy --network evmos
 npx hardhat deploy:mocks --verify --config-file config.js --network mumbai
 npx hardhat deploy:dao --verify --config-file config.js --network mumbai
 npx hardhat setup:dao --config-file config.js --network mumbai
+npx hardhat setup:test --config-file config.js --network mumbai
 ```
 
 - [USDC](https://mumbai.polygonscan.com/address/0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449) `0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449`
