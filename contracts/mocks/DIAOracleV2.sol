@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: UNLICENSED
+
 /**
  *Submitted for verification at escan.live on 2023-06-20
  */

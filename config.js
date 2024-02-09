@@ -2,7 +2,7 @@
  * @type{import('./lib/internal/types').DAOConfig}
  */
 const config = {
-  multisigAddress: "0x0050CBd6570948aE53E272995D5Cf6aF29340BbD",
+  multisigAddress: "0x197970E48082CD46f277ABDb8afe492bCCd78300",
   tokenName: "Vanilla DAO",
   tokenSymbol: "VD",
   shareCapital: "10000000000000000000000",
@@ -10,9 +10,9 @@ const config = {
   governanceTokenSymbol: "VDGOV",
   shareTokenName: "Vanilla DAO Share",
   shareTokenSymbol: "VDSHARE",
-  reserveAddress: "0x0050CBd6570948aE53E272995D5Cf6aF29340BbD",
-  usdcAddress: "0x4f2cd1D7ce5f4Db38F78bEbD23D7C8bE94117387",
-  diaOracleAddress: "0x1CC22B1E585ddc83554907B15D82B548a13b6223",
+  reserveAddress: "0x197970E48082CD46f277ABDb8afe492bCCd78300",
+  usdcAddress: "0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449",
+  diaOracleAddress: "0xb07Ef6909af5d52931D942dbaB6155794C3fc645",
   contributors: [
     {
       name: "albi",
@@ -38,6 +38,13 @@ const config = {
     {
       name: "nicola",
       address: "0x2e1aF63Cd595A6D715E5e2D92151801F0d406a6b",
+      status: "board",
+      shareBalance: "1000000000000000000",
+      balance: "22000000000000000000000",
+    },
+    {
+      name: "andrea",
+      address: "0x876E552A2F933F1067FEE167878e9E22622e6FE7",
       status: "board",
       shareBalance: "1000000000000000000",
       balance: "22000000000000000000000",

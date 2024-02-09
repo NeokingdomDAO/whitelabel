@@ -41,6 +41,16 @@ npx hardhat test
 npx hardhat deploy --network evmos
 ```
 
+# Deploy
+
+## Testnet
+
+```
+npx hardhat deploy:mocks --verify --config-file config.js --network mumbai
+npx hardhat deploy:dao --verify --config-file config.js --network mumbai
+npx hardhat setup:dao --config-file config.js --network mumbai
+```
+
 # Audits
 
 - [SolidProof](https://solidproof.io/)

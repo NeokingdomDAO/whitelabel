@@ -1,0 +1,52 @@
+{
+  "USDC": {
+    "address": "0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449",
+    "blockNumber": 45732668,
+    "blockHash": "0x304cbec2f7ab7fbabd85b548e1ea0ece2a3a1d2df595275f92788c90ddb2baa8"
+  },
+  "DIAOracleV2": {
+    "address": "0xb07Ef6909af5d52931D942dbaB6155794C3fc645",
+    "blockNumber": 45732681,
+    "blockHash": "0xafd1e146ce4300a9119b283b11e426d90d271b913738429dc95f96a638e38797"
+  },
+  "DAORoles": {
+    "address": "0x8967822842F410496B607E17F9D3e51C889D04e8",
+    "blockNumber": 45733168,
+    "blockHash": "0x500294f54bb070f499846ff7016d59756f31cbbc4d0c9dbfe139776e426a67dc"
+  },
+  "Voting": {
+    "address": "0x002A04822dB995841b04F0cd7bc689B38Ad6dEC7",
+    "blockNumber": 45733190,
+    "blockHash": "0x44a62d6f94a1d552cdbf4235c2a4e7ee19eadd38fae30579f6871a5d1a13229d"
+  },
+  "GovernanceToken": {
+    "address": "0x75A2D1c4fd6b56E31180e6244c72Cb9a5fc8F935",
+    "blockNumber": 45733206,
+    "blockHash": "0x2b74716ff0df3d91226e6ea5f390656597fe6ac30390bb8067130dfa7cb09db0"
+  },
+  "NeokingdomToken": {
+    "address": "0x7394E08A0E12837bfA5d8dd3EdDFEa34ADA54934",
+    "blockNumber": 45733222,
+    "blockHash": "0x3e545e9bad1a9d16ae94ce3c4ec99022b8eb195f12e4cbccbeebd8b01a144bfb"
+  },
+  "RedemptionController": {
+    "address": "0x3aE5A2f4a84B61Ebbe7B56754175bE305fa05d10",
+    "blockNumber": 45733233,
+    "blockHash": "0xb752286c37f6ee64899b1e990c48c0d86ae73b822ed958098525f5be8b7a2928"
+  },
+  "InternalMarket": {
+    "address": "0xD0A04300B06b0b972D26aB328BbfFbD80Ee2B8a2",
+    "blockNumber": 45733259,
+    "blockHash": "0x9236c96fa01a16eb2a73c695ae5649c96bcdccd022b619fe9a6ecea7c4560844"
+  },
+  "ShareholderRegistry": {
+    "address": "0x2EdbCdDA85CC393b1104BE2Db62D7C0028dE88Fa",
+    "blockNumber": 45733281,
+    "blockHash": "0x88fb46a3a5a6a444788b5207a0346e501c34a607d34ab6c681fbf933b3c79271"
+  },
+  "ResolutionManager": {
+    "address": "0xA79BFAF502D5025B011cc7E8471b03193fC88F09",
+    "blockNumber": 45733305,
+    "blockHash": "0xe7dc64edee66092c99b898c403135fb5eba4e4ac73d73725b7b8f439c362c760"
+  }
+}
