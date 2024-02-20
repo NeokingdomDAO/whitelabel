@@ -52,6 +52,15 @@ npx hardhat setup:dao --config-file config.js --network mumbai
 npx hardhat setup:test --config-file config.js --network mumbai
 ```
 
+## Local deployment
+
+```
+WAIT_BLOCKS=0 npx hardhat deploy:mocks --restart --config-file config.js --network localhost
+WAIT_BLOCKS=0 npx hardhat deploy:dao --restart --config-file config.js --network localhost
+WAIT_BLOCKS=0 npx hardhat setup:dao --restart --config-file config.js --network localhost
+WAIT_BLOCKS=0 npx hardhat setup:test --restart --config-file config.js --network localhost
+```
+
 - [USDC](https://mumbai.polygonscan.com/address/0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449) `0xE4105F54Bf2cCcCC37EE057C89e6c1134EBc9449`
 - [DIAOracleV2](https://mumbai.polygonscan.com/address/0xb07Ef6909af5d52931D942dbaB6155794C3fc645) `0xb07Ef6909af5d52931D942dbaB6155794C3fc645`
 - [DAORoles](https://mumbai.polygonscan.com/address/0x8967822842F410496B607E17F9D3e51C889D04e8) `0x8967822842F410496B607E17F9D3e51C889D04e8`
